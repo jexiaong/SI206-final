@@ -1,13 +1,11 @@
-
-
 import requests
 
 # Replace 'YourAPIKey' and 'YourLocationKey' with your actual AccuWeather API key and location key
-api_key = '329380'
-location_key = 'ExjKml3Q1PDHprqCGOVs5OnyWwFcxrRH'
+location_key = '329380'
+api_key = 'ExjKml3Q1PDHprqCGOVs5OnyWwFcxrRH'
 
 # URL for the hourly forecast API
-url = f'http://dataservice.accuweather.com/forecasts/v1/hourly/120hour/{location_key}?apikey={api_key}'
+url = "http://dataservice.accuweather.com/forecasts/v1/hourly/120hour/329380?apikey=ExjKml3Q1PDHprqCGOVs5OnyWwFcxrRH"
 
 # Make the GET request
 response = requests.get(url)
