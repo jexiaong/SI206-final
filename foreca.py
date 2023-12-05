@@ -1,12 +1,12 @@
 import requests
 
 # Replace 'YourAPIKey' and 'YourLocationKey' with your actual AccuWeather API key and location key
-location_key = '329380'
-api_key = 'aUE9PSJ9.MNoeWRihos1dmkFQN93nWb4QfG5xrvz3LCSkUX-qgpc'
+api_key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9wZmEuZm9yZWNhLmNvbVwvYXV0aG9yaXplXC90b2tlbiIsImlhdCI6MTcwMTgzMjY1NCwiZXhwIjo5OTk5OTk5OTk5LCJuYmYiOjE3MDE4MzI2NTQsImp0aSI6ImM4NTAxYmUwNjQyNjg5NTEiLCJzdWIiOiJqZXhpYW9uZyIsImZtdCI6IlhEY09oakM0MCtBTGpsWVR0amJPaUE9PSJ9.MNoeWRihos1dmkFQN93nWb4QfG5xrvz3LCSkUX-qgpc'
+api_key2 = 'aUE9PSJ9.MNoeWRihos1dmkFQN93nWb4QfG5xrvz3LCSkUX-qgpc'
 location = '42.2808, 83.7430'
 
 # URL for the hourly forecast API
-url = "http://dataservice.accuweather.com/api/v1/forecast/hourly/:{location}?apikey={api_key}"
+url = f"https://api.foreca.com/api/v1/forecast/hourly/:{location}?apikey={api_key}"
 
 # Make the GET request
 response = requests.get(url)
