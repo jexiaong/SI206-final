@@ -1,7 +1,6 @@
 import requests
 import sqlite3
 import sys
-import json
 
 def create_table(conn, cur):
     cur.execute('''
@@ -25,7 +24,6 @@ def create_table(conn, cur):
     ''')
     conn.commit()
 
-
 response = requests.request("GET", "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Ann%20Arbor%2C%20Michigan?unitGroup=metric&include=hours&key=DXM3T4BUXTSL3WQ47M2PKACHD&contentType=json")
 
 if response.status_code != 200:
@@ -33,8 +31,6 @@ if response.status_code != 200:
     sys.exit()
 
 jsonData = response.json()
-# print(jsonData)
-# print(json.dumps(jsonData, indent=2)[:1000*2])
 
 connection = sqlite3.connect('weather_data.db')
 cursor = connection.cursor()
@@ -46,7 +42,6 @@ count = 0
 for day in jsonData['days']:
     for hourly_data in day['hours']:
         if count < 25:
-            count += 1
             datetimeEpoch = hourly_data['datetimeEpoch']
             # print(datetimeEpoch)
             temp = hourly_data['temp']
@@ -69,6 +64,7 @@ for day in jsonData['days']:
             existing_data = cursor.fetchone()
 
             if not existing_data:
+                count += 1
                 cursor.execute('''
                     INSERT INTO visualcrossing 
                     (datetimeEpoch, temp, feelslike, humidity, precip, precipprob, snow, snowdepth, windgust,
@@ -82,7 +78,7 @@ for day in jsonData['days']:
 
 cursor.execute('''
     SELECT COUNT(*) FROM visualcrossing
-''')
+    ''')
 rows = cursor.fetchone()[0]
 print(rows)
 
