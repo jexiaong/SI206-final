@@ -2,6 +2,27 @@ import requests
 import sqlite3
 import sys
 
+def cond_table(conn, cur, conditions):
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS vc_conditions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            conditions TEXT
+            )
+    ''')
+    conn.commit()
+
+    cur.execute('SELECT id FROM vc_conditions WHERE conditions = ?', (conditions,))
+    existing_data = cursor.fetchone()
+    if existing_data:
+        return existing_data
+    if not existing_data:
+        cur.execute("INSERT INTO vc_conditions (conditions) VALUES (?)", (conditions,))
+        conn.commit()
+
+        cur.execute('SELECT id FROM vc_conditions WHERE conditions = ?', (conditions,))
+        new_id = cur.fetchone()
+        return new_id
+
 def create_table(conn, cur):
     cur.execute('''
         CREATE TABLE IF NOT EXISTS visualcrossing (
@@ -19,18 +40,19 @@ def create_table(conn, cur):
             pressure REAL,
             visibility REAL,
             cloudcover REAL,
-            conditions TEXT
+            conditions INT
         )
     ''')
     conn.commit()
 
-response = requests.request("GET", "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Ann%20Arbor%2C%20Michigan?unitGroup=metric&include=hours&key=DXM3T4BUXTSL3WQ47M2PKACHD&contentType=json")
+response = requests.request("GET", "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?unitGroup=metric&key=DXM3T4BUXTSL3WQ47M2PKACHD&contentType=json")
 
 if response.status_code != 200:
     print('Unexpected Status code: ', response.status_code)
     sys.exit()
 
 jsonData = response.json()
+# print(jsonData)
 
 connection = sqlite3.connect('weather_data.db')
 cursor = connection.cursor()
@@ -43,7 +65,6 @@ for day in jsonData['days']:
     for hourly_data in day['hours']:
         if count < 25:
             datetimeEpoch = hourly_data['datetimeEpoch']
-            # print(datetimeEpoch)
             temp = hourly_data['temp']
             feelslike = hourly_data['feelslike']
             humidity = hourly_data['humidity']
@@ -65,6 +86,10 @@ for day in jsonData['days']:
 
             if not existing_data:
                 count += 1
+
+                cond_id = cond_table(connection, cursor, conditions)[0]
+                # print(cond_id)
+
                 cursor.execute('''
                     INSERT INTO visualcrossing 
                     (datetimeEpoch, temp, feelslike, humidity, precip, precipprob, snow, snowdepth, windgust,
@@ -73,7 +98,7 @@ for day in jsonData['days']:
                     ''',
                     (datetimeEpoch, temp, feelslike, humidity, precip, precipprob, 
                     snow, snowdepth, windgust, windspeed, winddir, 
-                    pressure, visibility, cloudcover, conditions))
+                    pressure, visibility, cloudcover, cond_id))
                 connection.commit()
 
 cursor.execute('''

@@ -17,8 +17,6 @@ response = requests.get(url)
 if response.status_code == 200:
     # Parse the JSON response
     json_data = response.json()
-    
-    # Now, 'json_data' contains the hourly forecast data in JSON format
     print(json_data)
 else:
     # If the request was not successful, print the error status code
