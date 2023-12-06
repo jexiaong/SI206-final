@@ -4,7 +4,7 @@ import requests
 location_key = '329380'
 api_key = '25829ac81461451da7142237230612'
 location = 42.2808, 83.7430
-url = "http://api.weatherapi.com/v1/current.json?key=25829ac81461451da7142237230612&q=London"
+url = "http://api.weatherapi.com/v1/forecast.json?key=25829ac81461451da7142237230612&q=London&days=7"
 
 # URL for the hourly forecast API
 
