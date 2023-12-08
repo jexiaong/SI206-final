@@ -1,6 +1,7 @@
 import requests
 import sqlite3
 import sys
+import json
 
 # Replace 'YourAPIKey' and 'YourLocationKey' with your actual AccuWeather API key and location key
 location_key = '329380'
@@ -31,14 +32,11 @@ def create_table(conn, cur):
 
 response = requests.get(url)
 
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Parse the JSON response
-    jsonData = response.json()
-    print(jsonData)
-else:
-    # If the request was not successful, print the error status code
+if response.status_code != 200:
     print(f"Error: {response.status_code}")
+    sys.exit()
+
+jsonData = response.json()
 # print(jsonData)
 
 connection = sqlite3.connect('weather_data.db')
@@ -48,8 +46,8 @@ cursor = connection.cursor()
 create_table(connection, cursor)
 
 count = 0
-for day in jsonData['days']:
-    for hourly_data in day['hours']:
+for day in jsonData['forecast']['forecastday']:
+    for hourly_data in day['hour']:
         if count < 25:
             time_epoch = hourly_data['time_epoch']
             temp_c = hourly_data['temp_c']

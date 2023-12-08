@@ -2,6 +2,7 @@ import requests
 import sqlite3
 import sys
 
+
 def cond_table(conn, cur, conditions):
     cur.execute('''
         CREATE TABLE IF NOT EXISTS vc_conditions (
@@ -22,6 +23,7 @@ def cond_table(conn, cur, conditions):
         cur.execute('SELECT id FROM vc_conditions WHERE conditions = ?', (conditions,))
         new_id = cur.fetchone()
         return new_id
+
 
 def create_table(conn, cur):
     cur.execute('''
@@ -44,6 +46,7 @@ def create_table(conn, cur):
         )
     ''')
     conn.commit()
+
 
 response = requests.request("GET", "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?unitGroup=metric&key=DXM3T4BUXTSL3WQ47M2PKACHD&contentType=json")
 
@@ -101,9 +104,7 @@ for day in jsonData['days']:
                     pressure, visibility, cloudcover, cond_id))
                 connection.commit()
 
-cursor.execute('''
-    SELECT COUNT(*) FROM visualcrossing
-    ''')
+cursor.execute('''SELECT COUNT(*) FROM visualcrossing''')
 rows = cursor.fetchone()[0]
 print(rows)
 
