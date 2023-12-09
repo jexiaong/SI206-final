@@ -16,6 +16,7 @@ for r in result:
     wa_diff = abs(r[3] - r[4])
     data.append((r[0], vc_diff, wa_diff))
 
-for d in data:
-    #print to text file
-    pass
+file_path = 'difference.txt'
+with open(file_path, 'w') as file:
+    for d in data:
+        file.write(f"Time Epoch: {d[0]}\tVisualcrossing difference: {d[1]}\tWeatherapi difference: {d[2]}\n")
