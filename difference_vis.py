@@ -50,9 +50,9 @@ def difference_vis():
     sns.scatterplot(x=time, y=vs, label='Line 1', color='green', marker='s')
     sns.scatterplot(x=time, y=wa, label='Line 2', color='orange')
 
-    plt.xlabel('Hourly Data since 12/9/2023')
+    plt.xlabel('Hourly Data since Collection Time')
     plt.ylabel('Difference in Perceived and Actual Temperatures')
-    plt.title('Comparing Difference in Perceived and Actual Temperature Data\nBetween Visualcrossing API and WeatherApi over 100 Hours Since 12/9/2023')
+    plt.title('Comparing Difference in Perceived and Actual Temperature Data\nBetween Visualcrossing API and WeatherApi Over Next 100 Hours')
     plt.legend()
 
     plt.savefig('difference_scatter.png')

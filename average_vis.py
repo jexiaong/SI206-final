@@ -15,9 +15,9 @@ def average_vis():
 
     plt.plot(time, val, color='red', linestyle='dashed')
 
-    plt.xlabel('Hourly Data since 12/9/2023')
+    plt.xlabel('Hourly Data since Collection Time')
     plt.ylabel('Average Wind Speed')
-    plt.title('Comparing Average Difference in Wind Speed Between\nVisualcrossing API and WeatherApi Over 100 Hours since 12/9/2023')
+    plt.title('Comparing Average Difference in Wind Speed Between\nVisualcrossing API and WeatherApi Over Next 100 Hours')
 
     plt.savefig('avg_line.png')
     plt.close()
