@@ -46,7 +46,7 @@ time, vs, wa = read_data(file_path)
 sns.set(style="whitegrid")
 
 plt.figure(figsize=(10, 6))
-sns.scatterplot(x=time, y=vs, label='Line 1', color='green')
+sns.scatterplot(x=time, y=vs, label='Line 1', color='green', marker='s')
 sns.scatterplot(x=time, y=wa, label='Line 2', color='orange')
 
 plt.xlabel('Hourly Data since 12/9/2023')
