@@ -16,7 +16,11 @@ for r in result:
     wa_diff = abs(r[3] - r[4])
     data.append((r[0], vc_diff, wa_diff))
 
+data = sorted(data, key=lambda x: x[0])
+
 file_path = 'difference.txt'
+i = 0
 with open(file_path, 'w') as file:
     for d in data:
-        file.write(f"{d[0]}\t{d[1]}\t{d[2]}\n")
+        file.write(f"{i}\t{d[1]}\t{d[2]}\n")
+        i += 1
