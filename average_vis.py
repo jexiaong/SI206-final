@@ -12,7 +12,7 @@ file_name = 'average.txt'
 file_path = os.path.join(current_directory, file_name)
 time, val = read_data(file_path)
 
-plt.plot(time, val)
+plt.plot(time, val, color='red')
 
 plt.xlabel('Hourly Data since 12/9/2023')
 plt.ylabel('Average Wind Speed')
