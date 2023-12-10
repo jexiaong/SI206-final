@@ -7,16 +7,20 @@ def read_data(file_path):
         data = [list(map(float, line.strip().split())) for line in lines]
     return zip(*data)
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-file_name = 'average.txt'
-file_path = os.path.join(current_directory, file_name)
-time, val = read_data(file_path)
+def average_vis():
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    file_name = 'average.txt'
+    file_path = os.path.join(current_directory, file_name)
+    time, val = read_data(file_path)
 
-plt.plot(time, val, color='red', linestyle='dashed')
+    plt.plot(time, val, color='red', linestyle='dashed')
 
-plt.xlabel('Hourly Data since 12/9/2023')
-plt.ylabel('Average Wind Speed')
-plt.title('Comparing Average Difference in Wind Speed Between\nVisualcrossing API and WeatherApi Over 100 Hours since 12/9/2023')
+    plt.xlabel('Hourly Data since 12/9/2023')
+    plt.ylabel('Average Wind Speed')
+    plt.title('Comparing Average Difference in Wind Speed Between\nVisualcrossing API and WeatherApi Over 100 Hours since 12/9/2023')
 
-plt.savefig('avg_line.png')
-plt.close()
+    plt.savefig('avg_line.png')
+    plt.close()
+
+if __name__ == "__main__":
+    average_vis()
