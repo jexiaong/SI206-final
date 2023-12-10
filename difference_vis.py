@@ -12,13 +12,11 @@ file_name = 'difference.txt'
 file_path = os.path.join(current_directory, file_name)
 time, vs, wa = read_data(file_path)
 
-# Create a plot with two line graphs
 plt.plot(time, vs, label='Line 1')
 plt.plot(time, wa, label='Line 2')
 
-# Add labels and a legend
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
+plt.xlabel('Hourly Data')
+plt.ylabel('Difference in Perceived and Actual Temperatures')
 plt.title('Two Line Graphs')
 plt.legend()
 

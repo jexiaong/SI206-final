@@ -15,4 +15,4 @@ print(avg_list)
 file_path = 'average.txt'
 with open(file_path, 'w') as file:
     for item in avg_list:
-        file.write(f"Time Epoch: {item[0]}\tAverage Windspeed in kph: {item[1]}\n")
+        file.write(f"{item[0]}\t{item[1]}\n")
