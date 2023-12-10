@@ -14,10 +14,9 @@ time, val = read_data(file_path)
 
 plt.plot(time, val)
 
-plt.xlabel('Hourly Data')
+plt.xlabel('Hourly Data since 12/9/2023')
 plt.ylabel('Average Wind Speed')
-plt.title('Line Graph showing hourly variations in average wind speed')
-plt.legend()
+plt.title('Comparing Average Difference in Wind Speed Between\nVisualcrossing API and WeatherApi Over 100 Hours since 12/9/2023')
 
-# Show the plot
-plt.show()
+plt.savefig('avg_line.png')
+plt.close()

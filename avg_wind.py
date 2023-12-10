@@ -12,7 +12,10 @@ for entry in result:
     avg = (entry[1]+entry[2])/2
     avg_list.append((entry[0], avg))
 print(avg_list)
+avg_list = sorted(avg_list, key=lambda x: x[0])
 file_path = 'average.txt'
+i = 0
 with open(file_path, 'w') as file:
     for item in avg_list:
-        file.write(f"{item[0]}\t{item[1]}\n")
+        file.write(f"{i}\t{item[1]}\n")
+        i += 1
