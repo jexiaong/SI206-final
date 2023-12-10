@@ -19,4 +19,4 @@ for r in result:
 file_path = 'difference.txt'
 with open(file_path, 'w') as file:
     for d in data:
-        file.write(f"Time Epoch: {d[0]}\tVisualcrossing difference: {d[1]}\tWeatherapi difference: {d[2]}\n")
+        file.write(f"{d[0]}\t{d[1]}\t{d[2]}\n")
