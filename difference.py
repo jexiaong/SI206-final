@@ -21,6 +21,7 @@ def difference():
 
     file_path = 'difference.txt'
     with open(file_path, 'w') as file:
+        file.write("hours\tvisualcrossing difference\tweatherapi difference\n")
         for d in data:
             file.write(f"{d[0]}\t{d[1]}\t{d[2]}\n")
 

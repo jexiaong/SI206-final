@@ -17,6 +17,7 @@ def avg_wind():
     avg_list = sorted(avg_list, key=lambda x: x[0])
     file_path = 'average.txt'
     with open(file_path, 'w') as file:
+        file.write("hours\taverage difference in windspeed\n")
         for item in avg_list:
             file.write(f"{item[0]}\t{item[1]}\n")
 

@@ -34,6 +34,7 @@ import matplotlib.pyplot as plt
 
 def read_data(file_path):
     with open(file_path, 'r') as file:
+        next(file)
         lines = file.readlines()
         data = [list(map(float, line.strip().split())) for line in lines]
     return zip(*data)
