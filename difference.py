@@ -4,9 +4,9 @@ def difference():
     connection = sqlite3.connect('weather_data.db')
     cursor = connection.cursor()
     cursor.execute('''
-        SELECT vc.datetimeEpoch, vc.temp, vc.feelslike, wa.temp_c, wa.feelslike_c
+        SELECT vc.hours, vc.temp, vc.feelslike, wa.temp_c, wa.feelslike_c
         FROM visualcrossing AS vc
-        JOIN weatherapi AS wa ON vc.datetimeEpoch = wa.time_epoch;
+        JOIN weatherapi AS wa ON vc.hours = wa.hours;
         ''')
     result = cursor.fetchall()
     print(result)

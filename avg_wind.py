@@ -4,9 +4,9 @@ def avg_wind():
     connection = sqlite3.connect('weather_data.db')
     cursor = connection.cursor()
     cursor.execute('''
-        SELECT vc.datetimeEpoch, vc.windspeed, wa.wind_kph
+        SELECT vc.hours, vc.windspeed, wa.wind_kph
         FROM visualcrossing AS vc
-        JOIN weatherapi AS wa ON vc.datetimeEpoch = wa.time_epoch;
+        JOIN weatherapi AS wa ON vc.hours = wa.hours;
         ''')
     result = cursor.fetchall()
     avg_list = []
