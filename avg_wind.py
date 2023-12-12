@@ -16,11 +16,9 @@ def avg_wind():
     print(avg_list)
     avg_list = sorted(avg_list, key=lambda x: x[0])
     file_path = 'average.txt'
-    i = 0
     with open(file_path, 'w') as file:
         for item in avg_list:
-            file.write(f"{i}\t{item[1]}\n")
-            i += 1
+            file.write(f"{item[0]}\t{item[1]}\n")
 
 if __name__ == "__main__":
     avg_wind()

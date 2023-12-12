@@ -1,6 +1,7 @@
 import requests
 import sqlite3
 import sys
+from secret import VC_API_KEY
 
 
 def cond_table(conn, cur, conditions):
@@ -28,7 +29,7 @@ def cond_table(conn, cur, conditions):
 def create_table(conn, cur):
     cur.execute('''
         CREATE TABLE IF NOT EXISTS visualcrossing (
-            datetimeEpoch INT PRIMARY KEY,
+            hours INT PRIMARY KEY,
             temp REAL,
             feelslike REAL,
             humidity REAL,
@@ -48,7 +49,7 @@ def create_table(conn, cur):
     conn.commit()
 
 def visualcrossing():
-    response = requests.request("GET", "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?unitGroup=metric&key=DXM3T4BUXTSL3WQ47M2PKACHD&contentType=json")
+    response = requests.request("GET", f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?unitGroup=metric&key={VC_API_KEY}&contentType=json")
 
     if response.status_code != 200:
         print('Unexpected Status code: ', response.status_code)
@@ -67,7 +68,7 @@ def visualcrossing():
     for day in jsonData['days']:
         for hourly_data in day['hours']:
             if count < 25:
-                datetimeEpoch = hourly_data['datetimeEpoch']
+                hours = hourly_data['datetimeEpoch']
                 temp = hourly_data['temp']
                 feelslike = hourly_data['feelslike']
                 humidity = hourly_data['humidity']
@@ -84,7 +85,7 @@ def visualcrossing():
                 conditions = hourly_data['conditions']
 
                 # Check if the data already exists in the table
-                cursor.execute('SELECT datetimeEpoch FROM visualcrossing WHERE datetimeEpoch = ?', (datetimeEpoch,))
+                cursor.execute('SELECT hours FROM visualcrossing WHERE hours = ?', (hours,))
                 existing_data = cursor.fetchone()
 
                 if not existing_data:
@@ -95,11 +96,11 @@ def visualcrossing():
 
                     cursor.execute('''
                         INSERT INTO visualcrossing 
-                        (datetimeEpoch, temp, feelslike, humidity, precip, precipprob, snow, snowdepth, windgust,
+                        (hours, temp, feelslike, humidity, precip, precipprob, snow, snowdepth, windgust,
                         windspeed, winddir, pressure, visibility, cloudcover, conditions) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ''',
-                        (datetimeEpoch, temp, feelslike, humidity, precip, precipprob, 
+                        (hours, temp, feelslike, humidity, precip, precipprob, 
                         snow, snowdepth, windgust, windspeed, winddir, 
                         pressure, visibility, cloudcover, cond_id))
                     connection.commit()

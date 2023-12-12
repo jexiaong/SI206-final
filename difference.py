@@ -20,11 +20,9 @@ def difference():
     data = sorted(data, key=lambda x: x[0])
 
     file_path = 'difference.txt'
-    i = 0
     with open(file_path, 'w') as file:
         for d in data:
-            file.write(f"{i}\t{d[1]}\t{d[2]}\n")
-            i += 1
+            file.write(f"{d[0]}\t{d[1]}\t{d[2]}\n")
 
 if __name__ == "__main__":
     difference()
